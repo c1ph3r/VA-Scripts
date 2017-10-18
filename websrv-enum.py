@@ -23,7 +23,7 @@ import re
 import os
 import sys
 import time
-import urllib2
+import requests
 import threading
 from netaddr import *
 
@@ -33,19 +33,19 @@ class colors:
      YELLOW='\033[93m'
      RED='\033[91m'
      ENDC='\033[0m'
-
+		
 def getWebServer(ip, ports, msg):
 	for port in ports:
 		try:
-			req = urllib2.Request("http://"+ip+":"+str(port))
-			req.add_header('User-Agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')
-			res = urllib2.urlopen(req)
-			server = res.info().get('Server')
-			if server:
-				print "[+] IP:"+ip,"Port:"+str(port),"Running:",server
-				os.system('CutyCapt --url=http://%s:%s --out=%s%s_%s.png'%(ip,str(port),thumbs_dir,ip,str(port)))
-			else:
-				print "Unable to find Web Server on "+ip
+			with requests.session() as s:
+				headers = {"User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36"}
+				req = s.get("http://"+ip+":"+str(port), headers=headers)
+				server = req.headers['Server']
+				if server:
+					print("[+] IP:"+ip,"Port:"+str(port),"Running:",server)
+					os.system('CutyCapt --url=http://%s:%s --out=%s%s_%s.png'%(ip,str(port),thumbs_dir,ip,str(port)))
+				else:
+					print("Unable to find Web Server on "+ip)
 		except: pass
 
 #########################################################################
