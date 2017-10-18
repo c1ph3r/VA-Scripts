@@ -2,7 +2,7 @@
 #
 # Find web server running in an ip ranges(CIDR) and capturing webpage as an image(png).
 #----------------------------------------------------------------------------------------------#
-# websrv-enum.py v0.1                                                                          #
+# websrv-enum.py v0.2                                                                          #
 # (C)opyright 2011 - Krit Kadnok <c1ph3r[at]blackbuntu.com>                                    #
 #---License------------------------------------------------------------------------------------#
 #  This program is free software: you can redistribute it and/or modify it under the terms     #
@@ -33,7 +33,7 @@ class colors:
      YELLOW='\033[93m'
      RED='\033[91m'
      ENDC='\033[0m'
-		
+
 def getWebServer(ip, ports, msg):
 	for port in ports:
 		try:
@@ -48,11 +48,13 @@ def getWebServer(ip, ports, msg):
 					print("Unable to find Web Server on "+ip)
 		except: pass
 
+
+
 #########################################################################
 if __name__ == "__main__":
 
 # Banner
-	print colors.GREEN+'''
+	print (colors.GREEN+'''
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||                                                                        ||
 ||    Web Server Enumeration Tool                                         ||
@@ -60,16 +62,16 @@ if __name__ == "__main__":
 ||    Visit: www.blackbuntu.com                                           ||
 ||                                                                        ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-'''+colors.ENDC
+'''+colors.ENDC)
 
 	# Define ports
 	ports = [80,8000,8080,10000]
 	# Help
 	if len(sys.argv) != 2:
-		print colors.RED+"Usage:   "+colors.ENDC,colors.BLUE+"python",sys.argv[0],"<network>"+colors.ENDC
-		print colors.BLUE+"          You can specify IP address value and the CIDR prefix like this:"+colors.ENDC
-		print colors.RED+"Example: "+colors.ENDC,colors.BLUE+"python",sys.argv[0],"192.168.0.0/24"+colors.ENDC
-		print colors.RED+"Example: "+colors.ENDC,colors.BLUE+"python",sys.argv[0],"192.168.0.0/21"+colors.ENDC
+		print (colors.RED+"Usage:   "+colors.ENDC,colors.BLUE+"python",sys.argv[0],"<network>"+colors.ENDC)
+		print (colors.BLUE+"          You can specify IP address value and the CIDR prefix like this:"+colors.ENDC)
+		print (colors.RED+"Example: "+colors.ENDC,colors.BLUE+"python",sys.argv[0],"192.168.0.0/24"+colors.ENDC)
+		print (colors.RED+"Example: "+colors.ENDC,colors.BLUE+"python",sys.argv[0],"192.168.0.0/21"+colors.ENDC)
 		sys.exit(1)
 
 	# Get current working directory
@@ -85,12 +87,12 @@ if __name__ == "__main__":
 	try:
 		network = sys.argv[1]
 	except(ValueError):
-		print colors.RED+"[-] Incorrect Network values\n"+colors.ENDC
+		print (colors.RED+"[-] Incorrect Network values\n"+colors.ENDC)
 		sys.exit(1)
 
 	total_ip = IPNetwork(network)
-	print colors.RED+"\n[+] Scanning:"+colors.ENDC,len(total_ip)-2,"ips\n"
-	print "save capture image to "+thumbs_dir
+	print (colors.RED+"\n[+] Scanning:"+colors.ENDC,len(total_ip)-2,"ips\n")
+	print ("save capture image to "+thumbs_dir)
 
 	for ip in IPNetwork(network).iter_hosts():
 		ip = str(ip).strip()
